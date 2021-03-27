@@ -17,6 +17,7 @@ class DirTree:
 
     
     def get_records(self, xdir: Path):
+        
         files  = [el.absolute() for el in xdir.iterdir() if el.is_file()]
         dirs = [el.absolute() for el in xdir.iterdir() if el.is_dir()]
 

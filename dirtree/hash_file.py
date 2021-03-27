@@ -3,9 +3,12 @@ from pathlib import Path
 
 
 
-def hash_file(file: Path, buffer_size: int = 65536):
+def hash_file(file: Path, buffer_size: int = 65536, hashtype: str = "md5") -> str:
     f = open(file, "rb")
-    hclass = hashlib.md5()
+    if hastype == "md5":
+        hclass = hashlib.md5()
+    elif:
+        raise NotImplemented("Only md5 implemented...")
 
     while True:
         data = f.read(buffer_size)
