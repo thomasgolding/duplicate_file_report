@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "duplicate_files_report"
+name = "duplicate_file_report"
 version = "0.1.0"
 description = ""
 authors = ["Thomas <thomas.golding@gmail.com>"]
