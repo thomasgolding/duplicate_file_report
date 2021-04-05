@@ -1,45 +1,22 @@
 from pathlib import Path
-from tempfile import TemporaryDirectory
-
-from shutil import copyfile
+import hashlib 
 import pytest
 
+from hash_tree.hash_file import hash_file
+from tests.test_fixtures import dir_with_files, files
 
-@pytest.fixture(scope="session")
-def dir_with_files(tmpdir_factory):
-    tdir = tmpdir_factory.mktemp("data")
-    files = [
-        ("file1", "text1"), 
-        ("file2", "text2"), 
-        ("duplicate1", "text1")
-    ]
-    for el in files:            
-        f = Path(tdir) / el[0]
-        f.write_text(el[1])
-    return tdir
 
-@pytest.fixture(scope="session")
-def dir_with_one_duplicate(tmpdir_factory, dir_with_files):
-    tdir = tmpdir_factory.mktemp("with_duplicate")
-    p = Path(dir_with_files)
-    files = [el for el in p.iterdir()]
-    for el in files:
-        copyfile(el, Path(tdir) / el.name)
-    f_src = files[0]
-    p_dest = Path(tdir) / f"{el.name}2"
-    f_dest = str(p_dest)
-    copyfile(f_src, f_dest)
-    return tdir
-
+hashtypes = ["md5"]
 
 def test_filehash(dir_with_files):
     p = Path(dir_with_files)
-    files = [el for el in p.iterdir()]
-    assert len(files) == 3
-
-
-def test_filehash_duplicate(dir_with_one_duplicate):
-    p = Path(dir_with_one_duplicate)
-    files = [el for el in p.iterdir()]
-    assert len(files) == 4
-    
+    read_files = [el for el in p.iterdir()]
+    for f in read_files:
+        bytecontent = f.read_bytes()
+        for ht in hashtypes:
+            hash1 = hash_file(file=f, hashtype=ht)
+            hasher = hashlib.md5()
+            hasher.update(bytecontent)
+            hash2 = hasher.hexdigest()
+            assert hash1 == hash2
+        

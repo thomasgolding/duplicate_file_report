@@ -10,7 +10,7 @@ class HashTree:
         else:
             rp = rootpath
         self.rootpath = rp
-        self.hastype = hashtype
+        self.hashtype = hashtype
         self.buffer_size = buffer_size
         
 
@@ -47,3 +47,5 @@ class HashTree:
         records = records + rec_dir_flat
 
         return records
+    
+    
