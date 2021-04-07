@@ -1,7 +1,7 @@
 from typing import Union
 from pathlib import Path
 
-from dirtree.hash_file import hash_file
+from hash_tree.hash_file import hash_file
 
 class HashTree:
     def __init__(self, rootpath: Union[str, Path], buffer_size: int = 65536, hashtype: str = "md5"):
