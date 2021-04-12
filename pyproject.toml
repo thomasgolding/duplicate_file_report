@@ -6,11 +6,15 @@ authors = ["Thomas <thomas.golding@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+pandas = "^1.2.3"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.22.0"
 pytest = "^6.2.2"
 mypy = "^0.812"
+
+[tool.poetry.scripts]
+duplicate_report = 'report.cltool:cltool'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
