@@ -14,7 +14,7 @@ pytest = "^6.2.2"
 mypy = "^0.812"
 
 [tool.poetry.scripts]
-duplicate_report = 'report.cltool:cltool'
+duplicate_file_report = 'duplicate_file_report.cltool:cltool'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

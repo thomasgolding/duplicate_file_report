@@ -1,7 +1,7 @@
 from pathlib import Path
 import argparse
 
-from report.write_report import generate_report
+from duplicate_file_report.write_report import generate_report
 
     
 def cltool():
