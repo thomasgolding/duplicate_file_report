@@ -1,12 +1,12 @@
+import hashlib
 from pathlib import Path
-import hashlib 
-import pytest
 
 from hash_tree.hash_file import hash_file
-from tests.test_fixtures import dir_with_files, files
 
+# from tests.test_fixtures import dir_with_files
 
 hashtypes = ["md5"]
+
 
 def test_filehash(dir_with_files):
     p = Path(dir_with_files)
@@ -19,4 +19,3 @@ def test_filehash(dir_with_files):
             hasher.update(bytecontent)
             hash2 = hasher.hexdigest()
             assert hash1 == hash2
-        

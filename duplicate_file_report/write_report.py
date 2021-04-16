@@ -1,12 +1,8 @@
-
-import argparse
 from pathlib import Path
-
 
 import pandas as pd
 
 from hash_tree.hash_tree import HashTree
-
 
 
 def generate_report(path: Path):
@@ -19,5 +15,3 @@ def generate_report(path: Path):
     res = df.merge(hashcol, left_on="hash", right_index=True)
     res.sort_values(by=["duplicates", "hash"], ascending=False, inplace=True)
     return res
-    
-    

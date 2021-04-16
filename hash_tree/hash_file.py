@@ -2,7 +2,6 @@ import hashlib
 from pathlib import Path
 
 
-
 def hash_file(file: Path, buffer_size: int = 65536, hashtype: str = "md5") -> str:
     f = open(file, "rb")
     if hashtype == "md5":
@@ -15,11 +14,6 @@ def hash_file(file: Path, buffer_size: int = 65536, hashtype: str = "md5") -> st
         if not data:
             break
         hclass.update(data)
-    
+
     res = hclass.hexdigest()
     return res
-
-
-
-
-
