@@ -12,6 +12,7 @@ pandas = "^1.2.3"
 ipython = "^7.22.0"
 pytest = "^6.2.2"
 mypy = "^0.812"
+pre-commit = "^2.12.0"
 
 [tool.poetry.scripts]
 duplicate_file_report = 'duplicate_file_report.cltool:cltool'
