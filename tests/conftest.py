@@ -1,6 +1,7 @@
 from pathlib import Path
-import pytest
 from shutil import copyfile
+
+import pytest
 
 from tests.data_files import files0
 
@@ -31,5 +32,3 @@ def dir_with_one_duplicate(tmpdir_factory):
     f_dest = str(p_dest)
     copyfile(f_src, f_dest)
     return tdir
-
-
