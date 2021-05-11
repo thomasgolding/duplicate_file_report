@@ -2,7 +2,7 @@ import argparse
 from pathlib import Path
 
 from duplicate_file_report.write_report import generate_report
-
+from duplicate_file_report.write_report_dirs import write_duplicate_report_dirs
 
 def cltool():
     parser = argparse.ArgumentParser(description="Duplicate file report.")
@@ -22,3 +22,16 @@ def cltool():
         print(f"Report written in {t.name}")
     else:
         print("not valid rootdir.")
+
+
+def cltool_dir():
+    parser = argparse.ArgumentParser(description="Duplicate directory report.")
+    parser.add_argument("csvdir", help="The directory containing csv reports.")
+    args = parser.parse_args()
+
+    p = Path(args.csvdir)
+
+    if p.is_dir() and p.exists():
+        write_duplicate_report_dirs(csvdir=args.csvdir)
+    
+    

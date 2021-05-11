@@ -16,6 +16,7 @@ pre-commit = "^2.12.0"
 
 [tool.poetry.scripts]
 duplicate_file_report = 'duplicate_file_report.cltool:cltool'
+duplicate_dir_report = 'duplicate_file_report.cltool:cltool_dir'
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
