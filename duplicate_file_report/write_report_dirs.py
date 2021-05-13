@@ -11,7 +11,7 @@ def read_subreports(csvdir: str) -> pd.DataFrame:
     return df_raw
 
 
-def transform(df_raw: pd.DataFrame) -> pd.DataFrame:
+def transform(df_raw: pd.DataFrame, keep_hash_set: bool) -> pd.DataFrame:
     hash_per_folder = df_raw.groupby("parent_dir").apply(lambda r: r["hash"].tolist())
     n_files = hash_per_folder.apply(len)
     n_files.name = "n_files"
@@ -27,14 +27,22 @@ def transform(df_raw: pd.DataFrame) -> pd.DataFrame:
     df_res = pd.DataFrame(dirs).reset_index()
     df_res["n_unique_files"] = df_res.apply(lambda r: len(r["hash_set"]), axis=1)
     df_res["n_dirs"] = df_res.apply(lambda r: len(r["duplicated_dirs"]), axis=1)
-    df_res["list_duplicated_dirs"] = df_res.apply(
+    df_res["duplicated_dirs"] = df_res.apply(
         lambda r: list(r["duplicated_dirs"]), axis=1
     )
     df_res.sort_values(by=["n_dirs", "n_unique_files"], ascending=False, inplace=True)
+    df_res["hash_set_id"] = df_res["hash_set"].apply(hash)
+    df_res.reset_index(drop=True, inplace=True)
+
+    if not keep_hash_set:
+        df_res.drop(columns=["hash_set"], inplace=True)
+    
+    df_res = df_res.explode("duplicated_dirs")
+    
     return df_res
 
 
-def write_duplicate_report_dirs(csvdir: str):
+def write_duplicate_report_dirs(csvdir: str, keep_hash_set: bool = False):
     p_csvdir = Path(csvdir)
     if not p_csvdir.exists():
         return
@@ -45,5 +53,6 @@ def write_duplicate_report_dirs(csvdir: str):
         resdir.mkdir()
 
     df_raw = read_subreports(csvdir=csvdir)
-    df_res = transform(df_raw=df_raw)
+    df_res = transform(df_raw=df_raw, keep_hash_set=keep_hash_set)
+    df_res
     df_res.to_csv(result)
